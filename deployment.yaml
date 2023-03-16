@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: azscaleaj01
+spec:
+  selector:
+    matchLabels:
+      app: azscaleaj01
+  template:
+    metadata:
+      labels:
+        app: azscaleaj01
+    spec:
+      containers:
+      - name: azscaleaj01
+        image: sbacr02.azurecr.io/alun01:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5107
