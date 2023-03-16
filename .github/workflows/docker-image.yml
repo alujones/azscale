@@ -18,12 +18,14 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
 
   publish:
-    - name: Azure Container Registry Login
-      uses: Azure/docker-login@v1
-      with:
-        # Container registry username
-        username: sbacr02 
-        # Container registry password
-        password: ${{secrets.ACR_PASSWORD}} 
-        # Container registry server url
-        login-server: sbacr02.azurecr.io
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Azure/docker-login@v1
+      - name: Azure Container Registry Login
+        with:
+          # Container registry username
+          username: sbacr02 
+          # Container registry password
+          password: ${{secrets.ACR_PASSWORD}} 
+          # Container registry server url
+          login-server: sbacr02.azurecr.io
