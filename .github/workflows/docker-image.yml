@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sbacr02.azurecr.io:alun01:latest
+      run: docker build . --file Dockerfile --tag sbacr02.azurecr.io/alun01:latest
 
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1
@@ -27,4 +27,4 @@ jobs:
         # Container registry server url
         login-server: sbacr02.azurecr.io
     - name: ACR Push image
-      run: docker push sbacr02.azurecr.io:alun01:latest
+      run: docker push sbacr02.azurecr.io/alun01:latest
