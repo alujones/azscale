@@ -8,24 +8,23 @@ on:
 
 jobs:
 
-  build:
+  build_and_push:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag sbacr02.azurecr.io:alun01:latest
 
-  publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: Azure/docker-login@v1
-      - name: Azure Container Registry Login
-        with:
-          # Container registry username
-          username: sbacr02 
-          # Container registry password
-          password: ${{secrets.ACR_PASSWORD}} 
-          # Container registry server url
-          login-server: sbacr02.azurecr.io
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: sbacr02 
+        # Container registry password
+        password: ${{secrets.ACR_PASSWORD}} 
+        # Container registry server url
+        login-server: sbacr02.azurecr.io
+    - name: ACR Push image
+      run: docker push sbacr02.azurecr.io:alun01:latest
